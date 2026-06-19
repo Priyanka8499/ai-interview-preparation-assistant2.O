@@ -1,0 +1,439 @@
+<!--
+ * AI Interview Preparation Assistant - Main Entry HTML Page
+ * Engineered with Tailwind CSS, Lucide Icons, and custom animations.
+ * Can be opened directly in any browser (file://) or served via a build environment.
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview Preparation Assistant</title>
+    
+    <!-- Google Fonts Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS v3 Browser CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Custom Setup (Fonts, Colors & Dark Mode Config) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS Hook for Keyframe Animations & Transitions -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Vector Icons Library CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen font-sans antialiased transition-colors duration-300 relative overflow-x-hidden">
+
+    <!-- Ambient Glowing Background Accents -->
+    <div class="absolute top-0 left-1/4 w-[400px] h-[400px] rounded-full bg-blue-300/20 dark:bg-blue-900/10 glow-blur -translate-y-1/2"></div>
+    <div class="absolute top-[40%] right-0 w-[500px] h-[500px] rounded-full bg-indigo-300/10 dark:bg-indigo-950/10 glow-blur translate-x-1/3"></div>
+
+    <!-- Toast Notification Drawer -->
+    <div id="toast-container" class="fixed bottom-6 right-6 flex flex-col gap-3 z-50 max-w-sm w-full px-4"></div>
+
+    <!-- ==========================================
+       MAIN NAVIGATION NAVBAR
+       ========================================== -->
+    <nav class="sticky top-0 z-40 bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/80 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div id="nav-brand" class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/10">
+                    <i data-lucide="brain-circuit" class="w-5.5 h-5.5"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-slate-900 dark:text-white leading-none tracking-tight flex items-center gap-1.5">
+                        Prep<span class="text-blue-600 dark:text-blue-400">AI</span>
+                    </h1>
+                    <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase font-mono">Coach v2.5</span>
+                </div>
+            </div>
+
+            <!-- Global Action Controls -->
+            <div class="flex items-center gap-3">
+                <!-- API Connection Badge -->
+                <button id="config-api-btn" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-200/20 dark:border-slate-700/10 transition-all duration-200 cursor-pointer">
+                    <span id="api-status-dot" class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                    <span id="api-status-text" class="text-xs text-slate-600 dark:text-slate-300 font-medium ml-0.5">Configure Key</span>
+                </button>
+
+                <!-- Dark / Light Mode Trigger -->
+                <button id="theme-toggle-btn" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 flex items-center justify-center transition-all duration-200 cursor-pointer" title="Toggle Visual Theme">
+                    <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5 text-slate-600 dark:text-slate-400"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==========================================
+       HERO EXPLANATORY LANDING SECTION
+       ========================================== -->
+    <header class="relative max-w-6xl mx-auto px-5 pt-12 pb-8 text-center z-10">
+        <!-- Floating visual badges -->
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs font-extrabold tracking-wider uppercase font-mono border border-blue-100/40 dark:border-blue-500/10 mb-5 animate-float-slow">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Gemini Flash Driven
+        </span>
+        
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight max-w-3xl mx-auto">
+            Master Your Next Interview <br class="hidden sm:inline">
+            With High-Fidelity <span class="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">AI Prep Kits</span>
+        </h2>
+        
+        <p class="mt-4 text-slate-500 dark:text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Generate 10 tailor-made, role-specific questions, realistic model answer templates, and personalized expert strategy tips mapped perfectly to your experience level. 
+        </p>
+
+        <!-- Arrow Anchor Link -->
+        <div class="mt-6 flex justify-center">
+            <a href="#prep-form" class="inline-flex items-center gap-2 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700/50 hover:border-blue-500 dark:hover:border-blue-400 text-blue-600 dark:text-blue-400 transition-all duration-200 animate-float-medium" title="Scroll To Builder">
+                <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- ==========================================
+       INTERACTIVE BUILDER FORM
+       ========================================== -->
+    <main id="prep-form" class="max-w-3xl mx-auto px-5 py-6 relative z-10">
+        <!-- Main Panel Card -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-3xl shadow-xl shadow-slate-100/50 dark:shadow-none p-6 sm:p-8 transition-colors duration-300">
+            <!-- Form Section Header -->
+            <div class="border-b border-slate-50 dark:border-slate-800/60 pb-5 mb-6">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+                    <i data-lucide="user-cog" class="w-5.5 h-5.5 text-blue-500"></i>
+                    Configure Interview Persona
+                </h3>
+                <p class="text-slate-400 dark:text-slate-500 text-xs mt-1.5 leading-relaxed">Fill in details below. Floating tags provide Instant suggestions for common industry profiles.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+                <!-- Name Field -->
+                <div>
+                    <label for="name-input" class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-mono">Candidate Name</label>
+                    <div class="relative">
+                        <span class="absolute left-4.5 top-1/2 -translate-y-1/2 text-slate-400">
+                            <i data-lucide="user" class="w-4.5 h-4.5"></i>
+                        </span>
+                        <input type="text" id="name-input" class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 focus:bg-white dark:bg-slate-800 focus:dark:bg-slate-900 border border-slate-100 focus:border-blue-500 dark:border-slate-700/65 focus:dark:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/20 text-slate-800 dark:text-slate-100 font-semibold text-sm transition-all outline-none" placeholder="e.g., Alex Carter" required>
+                    </div>
+                </div>
+
+                <!-- Job Role Field -->
+                <div>
+                    <label for="job-role-input" class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-mono">Job Target Role</label>
+                    <div class="relative">
+                        <span class="absolute left-4.5 top-1/2 -translate-y-1/2 text-slate-400">
+                            <i data-lucide="briefcase" class="w-4.5 h-4.5"></i>
+                        </span>
+                        <input type="text" id="job-role-input" class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-slate-50 focus:bg-white dark:bg-slate-800 focus:dark:bg-slate-900 border border-slate-100 focus:border-blue-500 dark:border-slate-700/65 focus:dark:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/20 text-slate-800 dark:text-slate-100 font-semibold text-sm transition-all outline-none" placeholder="e.g., Frontend Developer" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fast suggestion pills -->
+            <div class="mb-8">
+                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2.5 font-mono">Suggested Roles</span>
+                <div id="suggested-role-pills" class="flex flex-wrap gap-2">
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="Software Engineer">Software Engineer</button>
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="Frontend Developer">Frontend Developer</button>
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="Product Manager">Product Manager</button>
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="Data Analyst">Data Analyst</button>
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="UX Designer">UX Designer</button>
+                    <button class="role-badge px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/10 cursor-pointer transition-all duration-200" data-role="DevOps Engineer">DevOps Engineer</button>
+                </div>
+            </div>
+
+            <!-- Experience Selection Depth Layout -->
+            <div class="mb-8">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3.5 font-mono">Experience Select Profile</label>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Fresher Option Card -->
+                    <div id="experience-card-fresher" class="experience-card border border-slate-200 dark:border-slate-700/60 rounded-2xl p-4 cursor-pointer transition-all-custom select-none relative group" data-experience="Fresher">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-900/30 text-sky-500 dark:text-sky-400 flex items-center justify-center">
+                                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            </div>
+                            <span class="exp-check text-blue-500 dark:text-blue-400 hidden">
+                                <i data-lucide="check-circle-2" class="w-5.5 h-5.5"></i>
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Fresher</h4>
+                        <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Graduate / Entry range (0-1 years development experience)</p>
+                    </div>
+
+                    <!-- Intermediate Option Card (Default Selected) -->
+                    <div id="experience-card-intermediate" class="experience-card border border-blue-500 bg-blue-50/40 dark:border-blue-400 dark:bg-blue-950/20 rounded-2xl p-4 cursor-pointer transition-all-custom select-none relative group" data-experience="Intermediate">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 flex items-center justify-center">
+                                <i data-lucide="network" class="w-5 h-5"></i>
+                            </div>
+                            <span class="exp-check text-blue-500 dark:text-blue-400">
+                                <i data-lucide="check-circle-2" class="w-5.5 h-5.5"></i>
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Intermediate</h4>
+                        <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Mid professional tier (1-4 years development experience)</p>
+                    </div>
+
+                    <!-- Experienced Option Card -->
+                    <div id="experience-card-experienced" class="experience-card border border-slate-200 dark:border-slate-700/60 rounded-2xl p-4 cursor-pointer transition-all-custom select-none relative group" data-experience="Experienced">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400 flex items-center justify-center">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <span class="exp-check text-blue-500 dark:text-blue-400 hidden">
+                                <i data-lucide="check-circle-2" class="w-5.5 h-5.5"></i>
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Experienced</h4>
+                        <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Lead / Senior architect level (5+ years development experience)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Action Footer Button Groups -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 border-t border-slate-50 dark:border-slate-800/60 pt-6">
+                <!-- Main CTA -->
+                <button id="generate-btn" class="w-full sm:flex-1 py-4 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-sm tracking-wide shadow-lg shadow-blue-500/15 flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all-custom select-none animate-pulse-button">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    Generate Interview Prep Kit
+                </button>
+                <!-- Secondary Clean trigger -->
+                <button id="clear-btn" class="w-full sm:w-auto py-4 px-6 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-sm tracking-wide flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98] transition-all duration-150">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    Clear Form
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+       DYNAMIC LOADING BLOCK OVERLAY
+       ========================================== -->
+    <div id="loader-overlay" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex-col items-center justify-center p-6 text-center select-none">
+        <!-- Floating Animated Cube Loader -->
+        <div class="relative w-20 h-20 mb-8 flex items-center justify-center">
+            <div class="absolute inset-0 rounded-3xl border-4 border-t-blue-500 border-r-indigo-500 border-b-indigo-200 border-l-blue-200 dark:border-b-indigo-950 dark:border-l-blue-950 animate-spin" style="animation-duration: 1.2s"></div>
+            <i data-lucide="brain-circuit" class="w-8 h-8 text-blue-500 animate-pulse"></i>
+        </div>
+        
+        <h4 class="text-xl font-bold text-white mb-2 tracking-tight">Compiling Tailored Prep Assets</h4>
+        <p id="loading-message-text" class="text-blue-200 font-semibold text-sm max-w-sm h-10 transition-all duration-300 leading-relaxed">Analyzing target job role capabilities...</p>
+        
+        <!-- Helpful tip footer inside loading overlay -->
+        <div class="mt-16 py-3 px-5 rounded-2xl bg-white/5 border border-white/10 max-w-sm flex items-center gap-3">
+            <i data-lucide="info" class="w-4.5 h-4.5 text-blue-300 shrink-0"></i>
+            <p class="text-left text-xs text-blue-100/80 leading-normal">Our AI model processes behavioral templates conforming to standard STAR framework answers.</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       RESULTS PREP KIT DASHBOARD SECTION
+       ========================================== -->
+    <section id="results-section" class="hidden max-w-6xl mx-auto px-5 py-8 relative z-10 scroll-mt-24">
+        <!-- Main Panel Section Title -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                    <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tighter">Your Personalized Interview Prep Kit</h3>
+                    <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                        <span id="result-role-badge" class="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">Software Engineer</span>
+                        <span class="text-slate-300 dark:text-slate-700 text-xs font-mono">•</span>
+                        <span id="result-exp-badge" class="text-xs font-bold font-mono px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Intermediate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Level Kit Actions -->
+            <div class="flex items-center gap-2.5">
+                <button id="copy-results-btn" class="flex-1 sm:flex-none py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all cursor-pointer">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    Copy Kit (Markdown)
+                </button>
+                <button id="download-results-btn" class="flex-1 sm:flex-none py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs tracking-wide flex items-center justify-center gap-1.5 border border-slate-200/20 active:scale-[0.98] transition-all cursor-pointer">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                    Download Kit (.md)
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <!-- Left Grid Pane: Personal Greeting + 10 Questions Accordions -->
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                <!-- Animated Welcoming Card -->
+                <div class="bg-gradient-to-tr from-slate-900 via-slate-850 to-indigo-950 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden">
+                    <!-- Deco geometric shape -->
+                    <div class="absolute right-0 bottom-0 w-32 h-32 bg-blue-500/10 blur-2xl rounded-full"></div>
+                    <div class="flex gap-4 items-start relative z-10">
+                        <span class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-blue-300 shrink-0">
+                            <i data-lucide="message-square" class="w-5 h-5"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-extrabold text-blue-300 text-xs font-mono uppercase tracking-widest mb-1">Strategical Advisor Intro</h4>
+                            <p id="result-greeting-text" class="text-slate-200 text-sm italic leading-relaxed prose max-w-none">
+                                Preparing for your role-specific interview...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions Accordion Section Header -->
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white uppercase tracking-wider font-mono flex items-center gap-2">
+                        <i data-lucide="help-circle" class="w-4.5 h-4.5 text-blue-500"></i>
+                        Questions & Answers
+                    </h4>
+                    <span class="text-xs font-bold font-mono text-slate-400 dark:text-slate-500">10 ITEMS GENERATED</span>
+                </div>
+
+                <!-- Contain accordions -->
+                <div id="questions-accordions-container" class="flex flex-col gap-4">
+                    <!-- Accordions generated dynamically in script.js -->
+                </div>
+            </div>
+
+            <!-- Right Grid Pane: Floating Tips checklist and checklists actions -->
+            <div class="flex flex-col gap-6">
+                <!-- Tips card layout -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-3xl p-6 shadow-lg shadow-slate-100/20 dark:shadow-none">
+                    <!-- Card Header -->
+                    <div class="flex items-center gap-3 mb-4.5 pb-4 border-b border-slate-50 dark:border-slate-800/60">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 dark:text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="line-chart" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-base leading-none">Preparation Milestones</h4>
+                            <span class="text-[10px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase font-mono">Checklist Items</span>
+                        </div>
+                    </div>
+
+                    <!-- Intro sentence -->
+                    <p class="text-slate-400 dark:text-slate-500 text-xs mb-4.5 leading-relaxed">
+                        Read through and click to check off these high-impact preparatory tasks before entering your interview:
+                    </p>
+
+                    <!-- Contain list values -->
+                    <div id="tips-list-container" class="flex flex-col gap-2">
+                        <!-- Checklist items generated dynamically in script.js -->
+                    </div>
+                </div>
+
+                <!-- Info summary block -->
+                <div class="p-5 rounded-2xl bg-slate-100/50 dark:bg-slate-800/40 border border-slate-200/20 dark:border-slate-700/10 hover:border-blue-500/30 dark:hover:border-blue-500/20 transition-all duration-300">
+                    <h5 class="font-bold text-slate-800 dark:text-slate-200 text-xs uppercase tracking-wider mb-2 font-mono flex items-center gap-1.5">
+                        <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500 animate-pulse"></i>
+                        Pro Interview Strategy
+                    </h5>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs leading-normal">
+                        To capitalize on these answers, practice using the <strong>STAR method</strong>: describe the specific <strong>Situation</strong>, the <strong>Task</strong> you faced, the <strong>Action</strong> you took, and the quantifiable <strong>Result</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       MODAL: INTUATIVE API CONFIGURATION
+       ========================================== -->
+    <div id="api-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
+        <!-- Modal Card Container -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full border border-slate-100 dark:border-slate-800 shadow-2xl p-6 relative overflow-hidden transition-all duration-300 animate-slide-up">
+            <!-- Close Trigger -->
+            <button id="close-modal-btn" class="absolute top-4.5 right-4.5 w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100/80 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer transition-colors duration-150">
+                <i data-lucide="x" class="w-4.5 h-4.5"></i>
+            </button>
+            
+            <div class="flex items-center gap-3 mb-4.5">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                    <i data-lucide="key-round" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-slate-900 dark:text-white text-base leading-none">Gemini API Configuration</h4>
+                    <span class="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider font-mono">Authentication Key</span>
+                </div>
+            </div>
+
+            <!-- Explainer text -->
+            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-4">
+                This website requests Gemini AI to generate custom interview questions, model answers, and strategic prep tips. 
+            </p>
+            
+            <div class="space-y-4 mb-5">
+                <div>
+                    <label for="api-key-input" class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 font-mono">Enter API Key</label>
+                    <input type="password" id="api-key-input" class="w-full px-4 py-3 rounded-2xl bg-slate-50 focus:bg-white dark:bg-slate-800 focus:dark:bg-slate-900 border border-slate-100 focus:border-blue-500 dark:border-slate-700/65 focus:dark:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/20 text-slate-800 dark:text-slate-100 font-semibold text-sm transition-all outline-none" placeholder="AIzaSy...">
+                </div>
+                
+                <!-- Safe notice block -->
+                <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/10 flex items-start gap-2.5">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                    <p class="text-[11px] text-slate-400 dark:text-slate-500 leading-normal">
+                        Your key is saved directly inside your browser cache (<strong class="text-slate-500 dark:text-slate-400">localStorage</strong>) and is only dispatched to Google's official Gemini endpoint. It is never transmitted to any third-party databases.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer Action Triggers -->
+            <div class="flex gap-2 border-t border-slate-50 dark:border-slate-800/60 pt-4.5">
+                <button id="save-key-btn" class="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs tracking-wide shadow-sm flex items-center justify-center gap-1 cursor-pointer transition-all">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    Apply Changes
+                </button>
+                <button id="delete-key-btn" class="py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100/60 dark:bg-rose-950/20 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 font-bold text-xs tracking-wide flex items-center justify-center gap-1 cursor-pointer transition-all">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    Reset Key
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       SUB-FOOTER SECTION
+       ========================================== -->
+    <footer class="max-w-6xl mx-auto px-5 pt-12 pb-8 border-t border-slate-100 dark:border-slate-800/30 text-center relative z-10">
+        <p class="text-xs text-slate-400 dark:text-slate-500 leading-relaxed max-w-sm mx-auto">
+            Powered by Google's native Gemini Flash model. <br class="hidden sm:inline"> Crafted with high-contrast elements, fluid animations, and custom accordion engines.
+        </p>
+    </footer>
+
+    <!-- Bind core JS Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

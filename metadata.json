@@ -1,0 +1,6 @@
+{
+  "name": "AI Interview Preparation Assistant",
+  "description": "A responsive, feature-rich and beautiful AI-powered assistant that generates tailored interview questions, sample answers, and personalized preparation tips based on job roles, experience levels, and personalized candidate contexts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
