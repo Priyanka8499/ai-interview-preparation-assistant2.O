@@ -64,19 +64,6 @@ Open [http://localhost:3000](http://localhost:3000) inside your browser. The env
 
 - **Zero database pipelines**: Your Gemini API key is cached exclusively inside your client sandbox's `localStorage` context.
 - **Direct API connection**: Requests are sent directly from your browser to Google Generative Language endpoints (`generativelanguage.googleapis.com`). No intermediary servers compile, store, or witness your passwords, secrets, or candidate inputs.
-# AI Interview Preparation Assistant
-
-## Overview
-
-AI Interview Preparation Assistant is a web application that helps users prepare for technical interviews by generating interview questions and personalized interview kits using Google's Gemini AI.
-
-## Features
-
-* AI-powered interview question generation
-* Personalized interview preparation kit
-* Simple and user-friendly interface
-* Secure API key configuration using browser local storage
-* Responsive design for desktop and mobile devices
 
 ## Technologies Used
 
