@@ -64,3 +64,53 @@ Open [http://localhost:3000](http://localhost:3000) inside your browser. The env
 
 - **Zero database pipelines**: Your Gemini API key is cached exclusively inside your client sandbox's `localStorage` context.
 - **Direct API connection**: Requests are sent directly from your browser to Google Generative Language endpoints (`generativelanguage.googleapis.com`). No intermediary servers compile, store, or witness your passwords, secrets, or candidate inputs.
+# AI Interview Preparation Assistant
+
+## Overview
+
+AI Interview Preparation Assistant is a web application that helps users prepare for technical interviews by generating interview questions and personalized interview kits using Google's Gemini AI.
+
+## Features
+
+* AI-powered interview question generation
+* Personalized interview preparation kit
+* Simple and user-friendly interface
+* Secure API key configuration using browser local storage
+* Responsive design for desktop and mobile devices
+
+## Technologies Used
+
+* HTML
+* CSS
+* JavaScript
+* Google Gemini API
+* GitHub
+* Vercel
+
+## Live Demo
+
+**Website:** https://YOUR-VERCEL-LINK.vercel.app
+
+## GitHub Repository
+
+https://github.com/Priyanka8499/ai-interview-preparation-assistant2.O
+
+## How to Run
+
+1. Open the live website.
+2. Click **Configure API**.
+3. Enter your Gemini API Key.
+4. Save the key.
+5. Generate your interview preparation kit.
+
+## Future Improvements
+
+* User authentication
+* Interview progress tracking
+* Voice-based mock interviews
+* Backend integration for secure API management
+
+## Author
+
+**Priyanka Rout**
+Note: This project requires a Google Gemini API key. Users need to configure their own API key through the Configure API option before using the application.
