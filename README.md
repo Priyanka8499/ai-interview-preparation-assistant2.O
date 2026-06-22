@@ -41,12 +41,6 @@ Since all styles, packages, and frameworks are compiled from browser CDNs, you c
 3. Tap **"Configure Key"** in the top navigation panel, input your secure Google Gemini API key, and select **"Apply Changes"**.
 4. Input your Name and Job Target, and generate your kit!
 
-### Method 2: Serving locally (Vite Environment)
-If you are inside our development repository workspace, run:
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) inside your browser. The environment's injected API key (`process.env.GEMINI_API_KEY`) is automatically forwarded to the preview window, allowing you to run, test, and generate Kits without manually copying keys!
 
 ---
 
