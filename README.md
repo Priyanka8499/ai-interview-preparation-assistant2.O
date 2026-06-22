@@ -72,11 +72,7 @@ Open [http://localhost:3000](http://localhost:3000) inside your browser. The env
 * JavaScript
 * Google Gemini API
 * GitHub
-* Vercel
 
-## Live Demo
-
-**Website:** https://YOUR-VERCEL-LINK.vercel.app
 
 ## GitHub Repository
 
